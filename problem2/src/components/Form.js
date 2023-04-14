@@ -22,6 +22,8 @@ export default function Form() {
 
   const [sendButtonClicked, setSendButtonClicked] = useState(false);
 
+  const [ethSent, setEthSent] = useState(false);
+
   const handleEthAddChange = (e) => {
     setEthAdd(e.target.value);
     setEthInputChanged(true);
@@ -35,6 +37,15 @@ export default function Form() {
   const handleOtpChange = (e) => {
     setOtp(e.target.value);
     setOtpInputChanged(true);
+  };
+
+  const handleSendChange = (e) => {
+    setConfirmButtonClicked(false);
+    setSendButtonClicked(true);
+    setTimeout(() => {
+      setSendButtonClicked(false);
+      setEthSent(true);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -196,10 +207,7 @@ export default function Form() {
                           formValid ? "" : "opacity-50"
                         }`}
                         disabled={!formValid}
-                        onClick={() => {
-                          setSendButtonClicked(true);
-                          setConfirmButtonClicked(false);
-                        }}
+                        onClick={handleSendChange}
                       >
                         Send
                       </button>
@@ -227,6 +235,14 @@ export default function Form() {
                           />
                         </svg>
                         Sending...
+                      </button>
+                    ) : ethSent ? (
+                      <button
+                        disabled
+                        type="button"
+                        class="text-white w-full bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center justify-center"
+                      >
+                        Sent!
                       </button>
                     ) : (
                       <button
