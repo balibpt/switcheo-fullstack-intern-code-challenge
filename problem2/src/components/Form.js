@@ -17,9 +17,10 @@ export default function Form() {
   const [otpError, setOtpError] = useState("");
   const [otpInputChanged, setOtpInputChanged] = useState(false);
 
-  const [formValid, setFormValid] = useState(false);
+  const [confirmValid, setConfirmValid] = useState(false);
   const [confirmButtonClicked, setConfirmButtonClicked] = useState(false);
 
+  const [sendValid, setSendValid] = useState(false);
   const [sendButtonClicked, setSendButtonClicked] = useState(false);
 
   const [ethSent, setEthSent] = useState(false);
@@ -74,11 +75,26 @@ export default function Form() {
 
   useEffect(() => {
     if (ethAddError || amtError || ethAdd === "" || amt === "") {
-      setFormValid(false);
+      setConfirmValid(false);
     } else {
-      setFormValid(true);
+      setConfirmValid(true);
     }
   }, [ethAddError, amtError, ethAdd, amt]);
+
+  useEffect(() => {
+    if (
+      ethAddError ||
+      amtError ||
+      otpError ||
+      ethAdd === "" ||
+      amt === "" ||
+      otp === ""
+    ) {
+      setSendValid(false);
+    } else {
+      setSendValid(true);
+    }
+  }, [ethAddError, amtError, otpError, ethAdd, amt, otp]);
 
   return (
     <React.Fragment>
@@ -204,9 +220,9 @@ export default function Form() {
                     {confirmButtonClicked ? (
                       <button
                         className={`w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ${
-                          formValid ? "" : "opacity-50"
+                          sendValid ? "" : "opacity-50"
                         }`}
-                        disabled={!formValid}
+                        disabled={!sendValid}
                         onClick={handleSendChange}
                       >
                         Send
@@ -247,9 +263,9 @@ export default function Form() {
                     ) : (
                       <button
                         className={`w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ${
-                          formValid ? "" : "opacity-50"
+                          confirmValid ? "" : "opacity-50"
                         }`}
-                        disabled={!formValid}
+                        disabled={!confirmValid}
                         onClick={() => {
                           setConfirmButtonClicked(true);
                         }}
