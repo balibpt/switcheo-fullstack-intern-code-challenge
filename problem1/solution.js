@@ -34,4 +34,18 @@ var sum_to_n_b = function (n) {
   }
 };
 
-module.exports = { sum_to_n_a, sum_to_n_b };
+// Solving using .reduce() method
+var sum_to_n_c = function (n) {
+  if (typeof n !== "number") {
+    return "Input must be a number";
+  }
+  var arr = Array.from({ length: Math.abs(n) }, (_, index) => index + 1);
+
+  const sum = arr.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+  }, 0);
+
+  return sum;
+};
+
+module.exports = { sum_to_n_a, sum_to_n_b, sum_to_n_c };
