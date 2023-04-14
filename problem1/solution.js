@@ -20,4 +20,18 @@ var sum_to_n_a = function (n) {
   return sum;
 };
 
-module.exports = { sum_to_n_a };
+// Solving using recursion
+var sum_to_n_b = function (n) {
+  if (typeof n !== "number") {
+    return "Input must be a number";
+  }
+
+  var n = Math.abs(n);
+  if (n == 0) {
+    return 0;
+  } else {
+    return n + sum_to_n_b(n - 1);
+  }
+};
+
+module.exports = { sum_to_n_a, sum_to_n_b };
