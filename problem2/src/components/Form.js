@@ -98,15 +98,15 @@ export default function Form() {
 
   return (
     <React.Fragment>
-      <div className="flex">
-        <div className="flex-1">
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="order-last md:order-first">
           <img
             className="h-full w-full object-fill"
             src="https://img.freepik.com/free-vector/flat-design-creative-dogecoin-illustration_23-2149195018.jpg?w=1380&t=st=1681456521~exp=1681457121~hmac=663691adec1c1339d8db2d91e1206e56b035c0512734fc202c9fdead6916c836"
             alt=""
           />
         </div>
-        <div className="flex-1">
+        <div className="order-first md:order-last">
           <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
               <a
