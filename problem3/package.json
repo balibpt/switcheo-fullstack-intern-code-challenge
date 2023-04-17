@@ -1,0 +1,14 @@
+{
+  "name": "problem3",
+  "version": "1.0.0",
+  "description": "retrieve-swth-holders",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bali",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.3.0"
+  }
+}
