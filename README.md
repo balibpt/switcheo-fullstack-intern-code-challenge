@@ -27,4 +27,4 @@ Deployed contract through Remix on Remix VM Mainnet Fork Environment
 Tested contract using Remix 
 <img width="1440" alt="Screenshot 2023-04-18 at 7 47 37 PM" src="https://user-images.githubusercontent.com/123551406/232768152-4f713daa-49c3-4f56-b65e-2e9b0afd626e.png">
 Could not get desired output format
-<img width="730" alt="Screenshot 2023-04-18 at 7 47 51 PM" src="https://user-images.githubusercontent.com/123551406/232768292-7fec8fc1-3d87-4a27-a6ed-58d0ec809013.png">
+<p><img width="730" alt="Screenshot 2023-04-18 at 7 47 51 PM" src="https://user-images.githubusercontent.com/123551406/232768292-7fec8fc1-3d87-4a27-a6ed-58d0ec809013.png"></p>
