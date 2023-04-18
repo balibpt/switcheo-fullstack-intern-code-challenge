@@ -12,3 +12,7 @@ Used 3 unique solutions to solve the problem:
 ### Testing
 
 Used Jest Javascript testing framework to run test cases for each implementation of the function. The tests are included in the `test.js` file.
+
+## Problem 2
+### Solution
+Fancy Form Link: https://switcheo-problem2.vercel.app/
