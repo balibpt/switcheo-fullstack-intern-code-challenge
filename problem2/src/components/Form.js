@@ -7,8 +7,6 @@ export default function Form() {
   const [amt, setAmt] = useState("");
   const [otp, setOtp] = useState("");
 
-  const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/;
-
   const [ethAddError, setEthAddError] = useState("");
   const [ethInputChanged, setEthInputChanged] = useState(false);
 
@@ -72,12 +70,13 @@ export default function Form() {
   };
 
   useEffect(() => {
+    const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/;
     if (ethInputChanged && !ethAddressRegex.test(ethAdd)) {
       setEthAddError("Please input a valid Eth Address");
     } else {
       setEthAddError("");
     }
-  }, [ethAdd, ethAddressRegex, ethInputChanged]);
+  }, [ethAdd, ethInputChanged]);
 
   useEffect(() => {
     if (amtInputChanged && !amt) {
