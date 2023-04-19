@@ -344,6 +344,16 @@ export default function Form() {
                         Confirm
                       </button>
                     )}
+                    {ethSent ? (
+                      <button
+                        className="mx-auto underline flex justify-center"
+                        onClick={() => window.location.reload(false)}
+                      >
+                        Make another transaction
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
