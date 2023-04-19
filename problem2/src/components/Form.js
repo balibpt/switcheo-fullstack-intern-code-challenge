@@ -25,6 +25,8 @@ export default function Form() {
 
   const [ethSent, setEthSent] = useState(false);
 
+  const [amtType, setAmtType] = useState("SGD");
+
   const handleEthAddChange = (e) => {
     setEthAdd(e.target.value);
     setEthInputChanged(true);
@@ -49,6 +51,14 @@ export default function Form() {
     }, 3000);
   };
 
+  const handleToggleButton = (e) => {
+    if (e.target.checked) {
+      setAmtType("ETH");
+    } else {
+      setAmtType("SGD");
+    }
+  };
+
   useEffect(() => {
     if (ethInputChanged && !ethAddressRegex.test(ethAdd)) {
       setEthAddError("Please input a valid Eth Address");
@@ -59,7 +69,7 @@ export default function Form() {
 
   useEffect(() => {
     if (amtInputChanged && !amt) {
-      setAmtError("Please input an amount of Eth you want to transfer ");
+      setAmtError("Please input an amount you want to transfer ");
     } else {
       setAmtError("");
     }
@@ -156,17 +166,33 @@ export default function Form() {
                       )}
                     </div>
                     <div>
-                      <label
-                        for="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Amount to send
-                      </label>
+                      <div className="flex justify-between items-center">
+                        <label
+                          for="password"
+                          className="inline-flex mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          Amount to send
+                        </label>
+                        <label class="relative inline-flex items-center mb-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            value=""
+                            class="sr-only peer"
+                            onClick={handleToggleButton}
+                          />
+                          <div class="w-9 h-5 bg-gray-900 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                          <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {amtType}
+                          </span>
+                        </label>
+                      </div>
                       <input
                         type="number"
                         name="amount"
                         id="amount"
-                        placeholder=""
+                        placeholder={
+                          amtType === "SGD" ? "Amount in SGD" : "Amount in ETH"
+                        }
                         className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
                           amtError
                             ? "border-red-600 focus:ring-red-600 focus:border-red-600"
