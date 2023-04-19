@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Transition } from "@tailwindui/react";
+import axios from "axios";
 
 export default function Form() {
   const [ethAdd, setEthAdd] = useState("");
@@ -27,6 +28,11 @@ export default function Form() {
 
   const [amtType, setAmtType] = useState("SGD");
 
+  const [ethValue, setEthValue] = useState("");
+
+  const [amtInEth, setAmtInEth] = useState("");
+  const [amtInSgd, setAmtInSgd] = useState("");
+
   const handleEthAddChange = (e) => {
     setEthAdd(e.target.value);
     setEthInputChanged(true);
@@ -35,6 +41,11 @@ export default function Form() {
   const handleAmtChange = (e) => {
     setAmt(e.target.value);
     setAmtInputChanged(true);
+    if (amtType === "SGD") {
+      setAmtInEth((e.target.value / ethValue).toFixed(5));
+    } else {
+      setAmtInSgd((e.target.value * ethValue).toFixed(2));
+    }
   };
 
   const handleOtpChange = (e) => {
@@ -52,6 +63,7 @@ export default function Form() {
   };
 
   const handleToggleButton = (e) => {
+    setAmt("");
     if (e.target.checked) {
       setAmtType("ETH");
     } else {
@@ -105,6 +117,20 @@ export default function Form() {
       setSendValid(true);
     }
   }, [ethAddError, amtError, otpError, ethAdd, amt, otp]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=sgd"
+        );
+        setEthValue(response.data.ethereum.sgd);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <React.Fragment>
@@ -186,23 +212,43 @@ export default function Form() {
                           </span>
                         </label>
                       </div>
-                      <input
-                        type="number"
-                        name="amount"
-                        id="amount"
-                        placeholder={
-                          amtType === "SGD" ? "Amount in SGD" : "Amount in ETH"
-                        }
-                        className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
-                          amtError
-                            ? "border-red-600 focus:ring-red-600 focus:border-red-600"
-                            : ""
-                        }`}
-                        required=""
-                        onChange={handleAmtChange}
-                      />
+                      <div className="relative">
+                        <input
+                          type="number"
+                          name="amount"
+                          id="amount"
+                          value={amt}
+                          className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${
+                            amtError
+                              ? "border-red-600 focus:ring-red-600 focus:border-red-600"
+                              : ""
+                          }`}
+                          required=""
+                          onChange={handleAmtChange}
+                        />
+                        <div className="absolute right-2 top-2">
+                          {amtType === "SGD" ? (
+                            <p className="text-gray-500 text-lg">SGD</p>
+                          ) : (
+                            <p className="text-gray-500 text-lg">ETH</p>
+                          )}
+                        </div>
+                      </div>
                       {amtError ? (
                         <p className="text-red-600">{amtError}</p>
+                      ) : (
+                        ""
+                      )}
+                      {amtInputChanged && amt ? (
+                        amtType === "SGD" ? (
+                          <p className="text-gray-500 text-sm">
+                            {amtInEth} ETH
+                          </p>
+                        ) : (
+                          <p className="text-gray-500 text-sm">
+                            {amtInSgd} SGD
+                          </p>
+                        )
                       ) : (
                         ""
                       )}
