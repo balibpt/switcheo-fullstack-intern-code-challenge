@@ -17,8 +17,6 @@ Used Jest Javascript testing framework to run test cases for each implementation
 ### Solution
 Fancy Form Link: https://switcheo-problem2.vercel.app/
 
-## Problem 3
-
 ## Problem 5 
 ### Solution
 Was not able to to deploy to testnet or mainnet using hardhat or truffle as I wasnt able to obtain testEth
